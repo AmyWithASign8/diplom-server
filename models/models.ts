@@ -18,12 +18,14 @@ const Product = sequelize.define('product', {
     price:{type: DataTypes.DOUBLE, allowNull:false, defaultValue: 0},
     image:{type: DataTypes.STRING, allowNull:false}
 })
-const PizzaType = sequelize.define('pizzatype', {
+const Type = sequelize.define('type', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title:{type: DataTypes.STRING, allowNull:false},
-    productId:{type: DataTypes.INTEGER, allowNull:false}
 })
-const BasketProduct = sequelize.define('basketproduct', {
+const ProductType = sequelize.define('product_type', {
+    id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+})
+const BasketProduct = sequelize.define('basket_product', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     basketId:{type: DataTypes.INTEGER, allowNull:false},
     productId:{type: DataTypes.INTEGER, allowNull:false},
@@ -45,8 +47,8 @@ Basket.belongsTo(User)
 Basket.hasMany(BasketProduct)
 BasketProduct.belongsTo(Basket)
 
-Product.hasOne(PizzaType)
-PizzaType.belongsTo(Product)
+Product.belongsToMany(Type, {through: ProductType})
+Type.belongsToMany(Product, {through: ProductType})
 
 User.hasMany(Comments)
 Comments.belongsTo(User)
@@ -63,6 +65,7 @@ module.exports = {
     Basket,
     Comments,
     BasketProduct,
-    PizzaType,
+    Type,
+    ProductType,
     Orders
 }
