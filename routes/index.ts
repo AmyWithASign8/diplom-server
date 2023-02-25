@@ -1,13 +1,19 @@
 const express = require('express');
 const router = express.Router()
+const userRouter = require('./userRouter')
+const basketRouter = require('./basketRouter')
 const commentRouter = require('./commentRouter')
-const newsImagesRouter = require('./newsImagesRouter')
+const productRouter = require('./productRouter')
+const ordersRouter = require('./ordersRouter')
+const pizzaTypesRouter = require('./pizzaTypesRouter')
 
-router.use('/user', )
-router.use('/basket')
+
+router.use('/user', userRouter)
+router.use('/basket', basketRouter)
 router.use('/comment', commentRouter)
-router.use('/news')
-router.use('/newsImages', newsImagesRouter)
+router.use('/orders', ordersRouter)
+router.use('/product', productRouter)
+router.use('/pizza_types', pizzaTypesRouter)
 
 module.exports = router
 
