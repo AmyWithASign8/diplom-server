@@ -5,15 +5,16 @@ class CommentController {
     async create(req: any, res: any, next: any) {
         try {
             const { userId } = req.params;
-            const { title, description } = req.body;
+            const { title, description, rating } = req.body;
             const comments = await Comments.create({
                 title,
                 description,
-                userId,
+                rating,
+                userId
             });
             return res.json(comments);
         } catch (e) {
-            next(ApiErrors);
+            res.json(e);
         }
     }
     async getAll(req: any, res: any) {
@@ -31,7 +32,7 @@ class CommentController {
     async delete(req: any, res: any, next: any) {
         const { id } = req.body;
         try {
-            const comments = await Comments.destroy({
+            const comment = await Comments.destroy({
                 where: {
                     newsId: id,
                 },

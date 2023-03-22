@@ -35,7 +35,6 @@ const Comments = sequelize.define('comments', {
     title:{type: DataTypes.STRING, allowNull:false},
     description:{type: DataTypes.STRING},
     rating: {type: DataTypes.STRING, allowNull:false},
-    userId:{type: DataTypes.INTEGER, allowNull:false},
 })
 const Orders = sequelize.define('orders', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},

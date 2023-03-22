@@ -1,10 +1,10 @@
-const Express = require("express");
-const routes = Express.Router();
-const commentController = require("../controllers/commentController");
+import * as express from 'express';
+const router = express.Router()
+const CommentController = require("../controllers/commentController");
 
 
-routes.post("/create_comment/:user_id", commentController.create);
-routes.get("/get_all_comments", commentController.getAll);
-routes.delete("/delete_comment/:comment_id", commentController.delete);
+router.post("/create/:userId", CommentController.create);
+router.get("/get_all", CommentController.getAll);
+router.delete("/delete/:comment_id", CommentController.delete);
 
-module.exports = routes;
+module.exports = router;

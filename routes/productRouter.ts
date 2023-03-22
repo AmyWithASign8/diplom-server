@@ -1,11 +1,11 @@
-const Express = require("express");
-const routes = Express.Router();
+import * as express from 'express';
+const router = express.Router()
 const productController = require("../controllers/productController");
 
 
-routes.post("/create_product", productController.create);
-routes.get("/get_one_product/:product_id", productController.getOne);//DEMO
-routes.get("/get_all_products", productController.getAll);
-routes.delete("/delete_product/:product_id", productController.delete);
+router.post("/create");
+router.get("/get_one/:productId");//DEMO
+router.get("/get_all");
+router.delete("/delete/:productId");
 
-module.exports = routes;
+module.exports = router;

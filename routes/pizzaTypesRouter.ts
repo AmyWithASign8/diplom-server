@@ -1,10 +1,10 @@
-const Express = require("express");
-const routes = Express.Router();
+import * as express from 'express';
+const router = express.Router()
 const pizzaTypesController = require("../controllers/pizzaTypesController");
 
 
-routes.get("/get_one_pizza_type/:pizza_type_id", pizzaTypesController.getOne);
-routes.get("/get_all_pizza_types", pizzaTypesController.getAll);
+router.get("/get_one/:pizza_type_id");
+router.get("/get_all");
 
 
-module.exports = routes;
+module.exports = router;

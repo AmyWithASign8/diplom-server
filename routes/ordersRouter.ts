@@ -1,11 +1,11 @@
-const Express = require("express");
-const routes = Express.Router();
+import * as express from 'express';
+const router = express.Router()
 const ordersController = require("../controllers/ordersController");
 
 
-routes.post("/create_order/:user_id", ordersController.create);
-routes.get("/get_one_order/:order_id", ordersController.getOne);
-routes.get("/get_all_orders", ordersController.getAll);
-routes.delete("/delete_order/:order_id", ordersController.delete);
+router.post("/create/:userId");
+router.get("/get_one/:orderId");
+router.get("/get_all");
+router.delete("/delete/:orderId");
 
-module.exports = routes;
+module.exports = router;
