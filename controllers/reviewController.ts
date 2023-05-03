@@ -1,7 +1,7 @@
 import { ApiErrors } from "../error/ApiError";
 
 const { Comments, User } = require("../models/models");
-class CommentController {
+class ReviewController {
     async create(req: any, res: any, next: any) {
         try {
             const { userId } = req.params;
@@ -43,4 +43,4 @@ class CommentController {
         }
     }
 }
-module.exports = new CommentController();
+module.exports = new ReviewController();
