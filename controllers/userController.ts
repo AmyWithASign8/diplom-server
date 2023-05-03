@@ -1,7 +1,7 @@
 import {ApiErrors} from "../error/ApiError";
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {User, Orders} = require('../models/models')
+const {User, Orders, Review} = require('../models/models')
 
 const generateJwt = (id: number, email: string, role: string) => {
     return jwt.sign(
@@ -64,7 +64,8 @@ class UserController {
                 {
                     include:[{
                         model: Orders,
-                    }]}
+                    }, {model: Review}]
+            }
             )
             return res.json(user)
         }catch (e){

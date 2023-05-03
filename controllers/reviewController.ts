@@ -1,12 +1,11 @@
 import { ApiErrors } from "../error/ApiError";
 
-const { Comments, User } = require("../models/models");
+const { Review, User } = require("../models/models");
 class ReviewController {
     async create(req: any, res: any, next: any) {
         try {
-            const { userId } = req.params;
-            const { title, description, rating } = req.body;
-            const comments = await Comments.create({
+            const { title, description, rating, userId } = req.body;
+            const comments = await Review.create({
                 title,
                 description,
                 rating,
@@ -19,7 +18,7 @@ class ReviewController {
     }
     async getAll(req: any, res: any) {
         let comment;
-        comment = await Comments.findAll({
+        comment = await Review.findAll({
             include: [
                 {
                     model: User,
@@ -30,11 +29,11 @@ class ReviewController {
         return res.json(comment);
     }
     async delete(req: any, res: any, next: any) {
-        const { id } = req.body;
+        const { reviewId } = req.body;
         try {
-            const comment = await Comments.destroy({
+            const review = await Review.destroy({
                 where: {
-                    newsId: id,
+                    id: reviewId,
                 },
             });
             return res.json("Комментарий успешно удален");
