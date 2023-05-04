@@ -15,15 +15,15 @@ const Basket = sequelize.define('basket', {
 const BasketProduct = sequelize.define('basket-product', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title:{type: DataTypes.STRING, unique: true, allowNull:false},
-    description:{type: DataTypes.STRING},
-    size:{type: DataTypes.INTEGER},
-    paste:{type: DataTypes.STRING},
+    description:{type: DataTypes.STRING, allowNull: true},
+    size:{type: DataTypes.INTEGER, allowNull: true},
+    paste:{type: DataTypes.STRING, allowNull: true},
     price:{type: DataTypes.DOUBLE, allowNull:false, defaultValue: 0},
 })
 const Product = sequelize.define('product', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title:{type: DataTypes.STRING, unique: true, allowNull:false},
-    description:{type: DataTypes.STRING},
+    description:{type: DataTypes.STRING, allowNull: true},
     price:{type: DataTypes.INTEGER, allowNull:false, defaultValue: 0},
     additional:{type: DataTypes.STRING, allowNull: true},
     image:{type: DataTypes.STRING, allowNull:false}
@@ -39,11 +39,15 @@ const Brand = sequelize.define('brand', {
 const Review = sequelize.define('review', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title:{type: DataTypes.STRING, allowNull:false},
-    description:{type: DataTypes.STRING},
+    description:{type: DataTypes.STRING, allowNull: true},
     rating: {type: DataTypes.DOUBLE, allowNull:false},
 })
 const Orders = sequelize.define('orders', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title:{type: DataTypes.STRING, unique: true, allowNull:false},
+    description:{type: DataTypes.STRING, allowNull: true},
+    size:{type: DataTypes.INTEGER, allowNull: true},
+    paste:{type: DataTypes.STRING, allowNull: true},
     price: {type: DataTypes.INTEGER, allowNull:false},
 })
 
