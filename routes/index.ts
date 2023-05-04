@@ -4,14 +4,16 @@ const userRouter = require('./userRouter')
 const reviewRouter = require('./reviewRouter')
 const productRouter = require('./productRouter')
 const ordersRouter = require('./ordersRouter')
-const pizzaTypesRouter = require('./typeRouter')
+const typeRouter = require('./typeRouter')
+const brandRouter = require('./brandRouter')
 
 
 router.use('/user', userRouter)
 router.use('/review', reviewRouter)
 router.use('/orders', ordersRouter)
 router.use('/product', productRouter)
-router.use('/pizza_types', pizzaTypesRouter)
+router.use('/type', typeRouter)
+router.use('/brand', brandRouter)
 
 module.exports = router
 

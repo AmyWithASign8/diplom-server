@@ -1,10 +1,11 @@
 import * as express from 'express';
 const router = express.Router()
-const typeController = require("../controllers/typeController");
+const TypeController = require("../controllers/typeController");
 
 
-router.get("/get_one/:pizza_type_id", typeController);
-router.get("/get_all", typeController);
+router.post("/create", TypeController.create);
+router.get("/get_all", TypeController.getAll);
+router.delete("/delete", TypeController.delete)
 
 
 module.exports = router;
