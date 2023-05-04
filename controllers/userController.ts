@@ -50,7 +50,7 @@ class UserController {
     }
     async getOne(req: any, res: any, next: any){
         try {
-            const {id} = req.params
+            const {id} = req.body
             const user = await User.findOne({
                 where: {id}
             })
@@ -128,7 +128,7 @@ class UserController {
     }
     async deleteAccount(req: any, res: any, next: any) {
         try{
-            const {id} = req.params
+            const {id} = req.body
             let acconut;
             acconut = User.destroy({
                 where: {id}
