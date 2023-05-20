@@ -1,11 +1,11 @@
-const {Basket, User, BasketProduct} = require('../models/models')
+const {Basket, User, BasketProduct, Product} = require('../models/models')
 import {ApiErrors} from "../error/ApiError";
 class BasketController {
 
     async getOne(req: any, res: any, next: any) {
         try {
-            const {id} = req.body
-            const user = await Basket.findOne({
+            const {id} = req.params
+            const basket = await Basket.findOne({
                 where: {userId: id},
                 include: [
                     {
@@ -13,10 +13,13 @@ class BasketController {
                     },
                     {
                         model: BasketProduct,
+                        include: [
+                            {model: Product}
+                        ]
                     }
                 ],
             })
-            return res.json(user)
+            return res.json(basket)
         } catch (e) {
             next(ApiErrors)
         }
