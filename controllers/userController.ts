@@ -44,7 +44,7 @@ class UserController {
         const token = generateJwt(user.id, user.email, password, user.role)
         return res.json({token})
     }
-    async check(req: any, res: any, next: any) {
+    async check(req: any, res: any) {
         const token = generateJwt(req.user.id, req.user.email, req.user.password, req.user.role)
         return res.json({token})
     }
@@ -89,7 +89,7 @@ class UserController {
             console.log(e)
         }
     }
-    async updatePassword(req: any, res: any, next: any){
+    async updatePassword(req: any, res: any){
         try {
             const {password, id} = req.body
             const hashPassword = await  bcrypt.hash(password, 5)
@@ -102,7 +102,7 @@ class UserController {
             console.log(e)
         }
     }
-    async updateTotalSpent(req: any, res: any, next: any){
+    async updateTotalSpent(req: any, res: any){
         try {
             const {totalSpent, id} = req.body
             const user = await User.update(
@@ -114,7 +114,7 @@ class UserController {
             console.log(e)
         }
     }
-    async updateOrdersCount(req: any, res: any, next: any){
+    async updateOrdersCount(req: any, res: any){
         try {
             const {ordersCount, id} = req.body
             const user = await User.update(
@@ -129,8 +129,7 @@ class UserController {
     async deleteAccount(req: any, res: any, next: any) {
         try{
             const {id} = req.body
-            let acconut;
-            acconut = User.destroy({
+            let account = User.destroy({
                 where: {id}
             })
             return res.json('Аккаунт был удален')

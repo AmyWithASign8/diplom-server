@@ -46,7 +46,19 @@ class BasketProductController {
             next(ApiErrors);
         }
     }
+    async clearCart(req: any, res: any, next: any) {
+        const { id } = req.params;
+        try {
+            const basketProduct = await BasketProduct.destroy({
+                where: {
+                    basketId: id,
+                },
+            });
+            return res.json(`Корзина пользователя №${id} успешно очищена`);
+        } catch (e) {
+            next(ApiErrors);
+        }
+    }
 }
-
 
 module.exports = new BasketProductController()
