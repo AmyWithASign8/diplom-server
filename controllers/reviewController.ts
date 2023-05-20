@@ -29,11 +29,11 @@ class ReviewController {
         return res.json(comment);
     }
     async delete(req: any, res: any, next: any) {
-        const { reviewId } = req.body;
+        const { id } = req.body;
         try {
             const review = await Review.destroy({
                 where: {
-                    id: reviewId,
+                    id,
                 },
             });
             return res.json("Комментарий успешно удален");
