@@ -44,11 +44,15 @@ const Review = sequelize.define('review', {
 })
 const Orders = sequelize.define('orders', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title:{type: DataTypes.STRING, unique: true, allowNull:false},
+    price: {type: DataTypes.DOUBLE, allowNull:false},
+})
+const OrderProduct = sequelize.define('orderProduct', {
+    id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title:{type: DataTypes.STRING, allowNull:false},
     description:{type: DataTypes.STRING, allowNull: true},
     size:{type: DataTypes.INTEGER, allowNull: true},
     paste:{type: DataTypes.STRING, allowNull: true},
-    price: {type: DataTypes.INTEGER, allowNull:false},
+    price:{type: DataTypes.DOUBLE, allowNull:false, defaultValue: 0},
 })
 
 User.hasOne(Basket)
@@ -57,11 +61,17 @@ Basket.belongsTo(User)
 Basket.hasMany(BasketProduct)
 BasketProduct.belongsTo(Basket)
 
+Orders.hasMany(OrderProduct)
+OrderProduct.belongsTo(Orders)
+
 User.hasMany(Review)
 Review.belongsTo(User)
 
 Product.hasMany(BasketProduct)
 BasketProduct.belongsTo(Product)
+
+Product.hasMany(OrderProduct)
+OrderProduct.belongsTo(Product)
 
 Type.hasMany(Product)
 Product.belongsTo(Type)
@@ -75,12 +85,14 @@ Type.belongsTo(Brand)
 User.hasMany(Orders)
 Orders.belongsTo(User)
 
+
 module.exports = {
     User,
     Product,
     Basket,
     Review,
     BasketProduct,
+    OrderProduct,
     Type,
     Orders,
     Brand
