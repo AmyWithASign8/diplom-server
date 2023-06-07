@@ -106,11 +106,11 @@ class ProductController {
     }
     async getAllByTextSearch(req: any, res: any) {
         try {
-            let { query, typeId, byPrice} = req.query;
+            let { query, typeId, byPrice, brandId} = req.query;
 
             query = query.toLowerCase();
 
-            if (typeId === 'none' && byPrice === 'none'){
+            if (typeId === 'none' && byPrice === 'none' && brandId === 'none'){
                 const products = await Product.findAll({
                     where: {
                         title: Sequelize.where(
@@ -123,7 +123,7 @@ class ProductController {
                 });
                 return res.json(products);
             }
-            if (typeId !== 'none' && byPrice === 'none'){
+            if (typeId !== 'none' && byPrice === 'none' && brandId === 'none'){
                 const products = await Product.findAll({
                     where: {
                         typeId,
@@ -137,7 +137,21 @@ class ProductController {
                 });
                 return res.json(products);
             }
-            if (typeId === 'none' && byPrice !== 'none'){
+            if (typeId === 'none' && byPrice === 'none' && brandId !== 'none'){
+                const products = await Product.findAll({
+                    where: {
+                        brandId,
+                        title: Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('product.title')),
+                            'LIKE',
+                            '%' + query + '%',
+                        ),
+                    },
+                    include: [{ model: Type }, { model: Brand }],
+                });
+                return res.json(products);
+            }
+            if (typeId === 'none' && byPrice !== 'none' && brandId === 'none'){
                 const products = await Product.findAll({
                     where: {
                         title: Sequelize.where(
@@ -151,7 +165,23 @@ class ProductController {
                 });
                 return res.json(products);
             }
-            if (typeId !== 'none' && byPrice !== 'none'){
+            if (typeId !== 'none' && byPrice !== 'none' && brandId !== 'none'){
+                const products = await Product.findAll({
+                    where: {
+                        typeId,
+                        brandId,
+                        title: Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('product.title')),
+                            'LIKE',
+                            '%' + query + '%',
+                        ),
+                    },
+                    include: [{ model: Type }, { model: Brand }],
+                    order: [["price", byPrice]],
+                });
+                return res.json(products);
+            }
+            if (typeId !== 'none' && byPrice !== 'none' && brandId === 'none'){
                 const products = await Product.findAll({
                     where: {
                         typeId,
@@ -163,6 +193,36 @@ class ProductController {
                     },
                     include: [{ model: Type }, { model: Brand }],
                     order: [["price", byPrice]],
+                });
+                return res.json(products);
+            }
+            if (typeId === 'none' && byPrice !== 'none' && brandId !== 'none'){
+                const products = await Product.findAll({
+                    where: {
+                        brandId,
+                        title: Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('product.title')),
+                            'LIKE',
+                            '%' + query + '%',
+                        ),
+                    },
+                    include: [{ model: Type }, { model: Brand }],
+                    order: [["price", byPrice]],
+                });
+                return res.json(products);
+            }
+            if (typeId !== 'none' && byPrice === 'none' && brandId !== 'none'){
+                const products = await Product.findAll({
+                    where: {
+                        typeId,
+                        brandId,
+                        title: Sequelize.where(
+                            Sequelize.fn('LOWER', Sequelize.col('product.title')),
+                            'LIKE',
+                            '%' + query + '%',
+                        ),
+                    },
+                    include: [{ model: Type }, { model: Brand }],
                 });
                 return res.json(products);
             }
@@ -170,6 +230,7 @@ class ProductController {
             console.log(error);
         }
     }
+
 }
 
 
