@@ -39,8 +39,9 @@ const Brand = sequelize.define('brand', {
 const Review = sequelize.define('review', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title:{type: DataTypes.STRING, allowNull:false},
-    description:{type: DataTypes.STRING, allowNull: true},
+    description:{type: DataTypes.TEXT, allowNull: true},
     rating: {type: DataTypes.DOUBLE, allowNull:false},
+    status: {type: DataTypes.STRING, allowNull: false, defaultValue: 'waiting'}
 })
 const Orders = sequelize.define('orders', {
     id:{type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},

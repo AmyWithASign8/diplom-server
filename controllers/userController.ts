@@ -65,8 +65,10 @@ class UserController {
                 {
                     include:[{
                         model: Orders,
-                    }, {model: Review},{model: Basket}]
+                    }, {model: Review},{model: Basket}],
+                    order: [["createdAt", "ASC"]],
             }
+
             )
             return res.json(user)
         }catch (e){

@@ -19,6 +19,9 @@ class ReviewController {
     async getAll(req: any, res: any) {
         let comment;
         comment = await Review.findAll({
+            where: {
+                status: 'approved'
+            },
             include: [
                 {
                     model: User,
@@ -27,6 +30,34 @@ class ReviewController {
             order: [["createdAt", "DESC"]],
         });
         return res.json(comment);
+    }
+    async getAllForAdmin(req: any, res: any) {
+        let comment;
+        comment = await Review.findAll({
+            where: {
+                status: 'waiting'
+            },
+            include: [
+                {
+                    model: User,
+                },
+            ],
+            order: [["createdAt", "DESC"]],
+        });
+        return res.json(comment);
+    }
+    async ApprovedReview(req: any, res: any, next: any){
+        try{
+            const {id, status} = req.body;
+            const review = await Review.update({status},{
+                where: {
+                    id
+                }
+            })
+            return res.json('Комментарий одобрен!')
+        }catch (e) {
+            next(ApiErrors)
+        }
     }
     async delete(req: any, res: any, next: any) {
         const { id } = req.body;

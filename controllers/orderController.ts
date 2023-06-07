@@ -57,6 +57,7 @@ class OrderController {
                         ]
                     }
                 ],
+                order: [["createdAt", "DESC"]],
             })
             return res.json(order)
         } catch (e) {
