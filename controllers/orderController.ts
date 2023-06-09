@@ -64,6 +64,40 @@ class OrderController {
             next(ApiErrors)
         }
     }
+    async getAllForAdmin(req: any, res: any, next: any) {
+        try {
+            const order = await Orders.findAll({
+                where: {
+                    status: "waiting"
+                },
+                include: [
+                    {
+                        model: User,
+                    },
+                    {
+                        model: OrderProduct,
+                        include: [
+                            {
+                                model: Product,
+                                include: [
+                                    {
+                                        model: Type
+                                    },
+                                    {
+                                        model: Brand
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                order: [["createdAt", "DESC"]],
+            })
+            return res.json(order)
+        } catch (e) {
+            next(ApiErrors)
+        }
+    }
     async getOne(req: any, res: any, next: any) {
         try {
             const {id} = req.body
@@ -77,6 +111,19 @@ class OrderController {
             })
             return res.json(order)
         } catch (e) {
+            next(ApiErrors)
+        }
+    }
+    async CompletedOrder(req: any, res: any, next: any){
+        try{
+            const {id, status} = req.body;
+            const review = await Orders.update({status},{
+                where: {
+                    id
+                }
+            })
+            return res.json('Заказ выполнен!')
+        }catch (e) {
             next(ApiErrors)
         }
     }
